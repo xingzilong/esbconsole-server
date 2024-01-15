@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.EventsDAO">
+    <resultMap id="EventsMap" type="org.talend.esbconsole.server.domain.repository.entity.EventsDO">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="EI_TIMESTAMP" jdbcType="TIMESTAMP" property="eiTimestamp"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="EI_EVENT_TYPE" jdbcType="VARCHAR" property="eiEventType"/>
+        <result column="ORIG_CUSTOM_ID" jdbcType="VARCHAR" property="origCustomId"/>
+        <result column="ORIG_PROCESS_ID" jdbcType="VARCHAR" property="origProcessId"/>
+        <result column="ORIG_HOSTNAME" jdbcType="VARCHAR" property="origHostname"/>
+        <result column="ORIG_IP" jdbcType="VARCHAR" property="origIp"/>
+        <result column="ORIG_PRINCIPAL" jdbcType="VARCHAR" property="origPrincipal"/>
+        <result column="MI_PORT_TYPE" jdbcType="VARCHAR" property="miPortType"/>
+        <result column="MI_OPERATION_NAME" jdbcType="VARCHAR" property="miOperationName"/>
+        <result column="MI_MESSAGE_ID" jdbcType="VARCHAR" property="miMessageId"/>
+        <result column="MI_FLOW_ID" jdbcType="VARCHAR" property="miFlowId"/>
+        <result column="MI_TRANSPORT_TYPE" jdbcType="VARCHAR" property="miTransportType"/>
+        <result column="MESSAGE_CONTENT" jdbcType="VARCHAR" property="messageContent"/>
+        <result column="SERVICE_KEY" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="HTTP_METHOD" jdbcType="VARCHAR" property="httpMethod"/>
+        <result column="URI" jdbcType="VARCHAR" property="uri"/>
+        <result column="QUERYSTRING" jdbcType="VARCHAR" property="querystring"/>
+        <result column="PROTOCOL" jdbcType="VARCHAR" property="protocol"/>
+        <result column="HTTP_HEADERS" jdbcType="VARCHAR" property="httpHeaders"/>
+        <result column="CONSUMER_IP" jdbcType="VARCHAR" property="consumerIp"/>
+        <result column="HTTP_STATUS" jdbcType="INTEGER" property="httpStatus"/>
+        <result column="RESPONSE_TIME" jdbcType="BIGINT" property="responseTime"/>
+        <result column="FAILURE_CAUSE" jdbcType="VARCHAR" property="failureCause"/>
+        <result column="MESSAGE_TYPE" jdbcType="VARCHAR" property="messageType"/>
+        <result column="CONTENT_CUT" jdbcType="BOOLEAN" property="contentCut"/>
+    </resultMap>
+
+    <resultMap id="ServiceLogMap" type="org.talend.esbconsole.server.domain.api.model.ServiceLogModel">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="business_system" jdbcType="VARCHAR" property="businessSystem"/>
+        <result column="EI_TIMESTAMP" jdbcType="TIMESTAMP" property="eiTimestamp"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="EI_EVENT_TYPE" jdbcType="VARCHAR" property="eiEventType"/>
+        <result column="ORIG_CUSTOM_ID" jdbcType="VARCHAR" property="origCustomId"/>
+        <result column="ORIG_PROCESS_ID" jdbcType="VARCHAR" property="origProcessId"/>
+        <result column="ORIG_HOSTNAME" jdbcType="VARCHAR" property="origHostname"/>
+        <result column="ORIG_IP" jdbcType="VARCHAR" property="origIp"/>
+        <result column="ORIG_PRINCIPAL" jdbcType="VARCHAR" property="origPrincipal"/>
+        <result column="MI_PORT_TYPE" jdbcType="VARCHAR" property="miPortType"/>
+        <result column="MI_OPERATION_NAME" jdbcType="VARCHAR" property="miOperationName"/>
+        <result column="MI_MESSAGE_ID" jdbcType="VARCHAR" property="miMessageId"/>
+        <result column="MI_FLOW_ID" jdbcType="VARCHAR" property="miFlowId"/>
+        <result column="MI_TRANSPORT_TYPE" jdbcType="VARCHAR" property="miTransportType"/>
+        <result column="SERVICE_KEY" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="HTTP_METHOD" jdbcType="VARCHAR" property="httpMethod"/>
+        <result column="CONSUMER_IP" jdbcType="VARCHAR" property="consumerIp"/>
+        <result column="HTTP_STATUS" jdbcType="INTEGER" property="httpStatus"/>
+        <result column="RESPONSE_TIME" jdbcType="BIGINT" property="responseTime"/>
+        <result column="FAILURE_CAUSE" jdbcType="VARCHAR" property="failureCause"/>
+        <result column="MESSAGE_TYPE" jdbcType="VARCHAR" property="messageType"/>
+    </resultMap>
+
+    <resultMap id="dailyTotalMap" type="org.talend.esbconsole.server.domain.api.model.APICallTotalAnalysisDTO">
+        <id column="date" property="date" jdbcType="TIMESTAMP"
+            typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTypeHandler"/>
+        <result column="total" property="total" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="APICallTop5DataMap" type="org.talend.esbconsole.server.domain.api.model.APICallTop5DataDTO">
+        <result column="consumer_ip" property="consumerIP" jdbcType="VARCHAR"/>
+        <result column="consumer_system" property="consumerSystem" jdbcType="VARCHAR"/>
+        <result column="call_total" property="callTotal" jdbcType="VARCHAR"/>
+        <result column="call_failure_total" property="callFailureTotal" jdbcType="VARCHAR"/>
+        <result column="service_Key" property="serviceKey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="APICallAnalysisTableMap"
+               type="org.talend.esbconsole.server.domain.api.model.APICallAnalysisTableDTO">
+        <result column="consumer_system" property="consumerSystem" jdbcType="VARCHAR"/>
+        <result column="consumer_ip" property="consumerIP" jdbcType="VARCHAR"/>
+        <result column="call_total" property="callTotal" jdbcType="BIGINT"/>
+        <result column="call_failure_total" property="callFailureTotal" jdbcType="BIGINT"/>
+        <result column="call_failure_total_4_frequency" property="callFailureTotal4Frequency" jdbcType="BIGINT"/>
+        <result column="call_failure_total_4_flow" property="callFailureTotal4Flow" jdbcType="BIGINT"/>
+        <result column="call_failure_total_4_ip" property="callFailureTotal4IP" jdbcType="BIGINT"/>
+        <result column="avg_response_time" property="avgResponseTime" jdbcType="DOUBLE"/>
+
+    </resultMap>
+
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        EVENTS
+    </sql>
+    <sql id="ALLFIELDS">
+        ID
+        , EI_TIMESTAMP, EI_EVENT_TYPE, ORIG_CUSTOM_ID, ORIG_PROCESS_ID, ORIG_HOSTNAME,
+    ORIG_IP, ORIG_PRINCIPAL, MI_PORT_TYPE, MI_OPERATION_NAME, MI_MESSAGE_ID, MI_FLOW_ID,
+    MI_TRANSPORT_TYPE, MESSAGE_CONTENT, SERVICE_KEY, HTTP_METHOD, URI, QUERYSTRING, PROTOCOL,
+    HTTP_HEADERS, CONSUMER_IP, HTTP_STATUS, RESPONSE_TIME, MESSAGE_TYPE, FAILURE_CAUSE, CONTENT_CUT
+    </sql>
+
+    <!--  自定义总数查询  -->
+    <select id="listREQMiFlowIdByConditions_COUNT" resultType="Long">
+        SELECT
+        count(MI_FLOW_ID)
+        FROM EVENTS
+        WHERE
+        MESSAGE_TYPE = 'REQ'
+        <if test="businessSystemId != null and businessSystemId != ''">
+            AND SERVICE_KEY IN (
+            SELECT
+            SERVICE_KEY
+            FROM
+            SERVICE
+            WHERE
+            BUSINESS_SYSTEM_ID = #{businessSystemId, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="serviceName != null and serviceName != ''">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'REQ'
+            AND
+            SERVICE_KEY IN (
+            SELECT
+            service_key
+            FROM
+            service
+            WHERE
+            name = #{serviceName, jdbcType=VARCHAR}
+            )
+            )
+        </if>
+        <if test="consumerIp != null and consumerIp != ''">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'REQ'
+            AND
+            CONSUMER_IP = #{consumerIp, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="type != null and type == 'soap'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MI_TRANSPORT_TYPE &lt;&gt; 'http://cxf.apache.org/transports/http'
+            )
+        </if>
+        <if test="type != null and type == 'restful'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MI_TRANSPORT_TYPE = 'http://cxf.apache.org/transports/http'
+            )
+        </if>
+        <if test="httpStatus != null and httpStatus == 'success'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'RESP'
+            AND
+            HTTP_STATUS = 200
+            )
+        </if>
+        <if test="httpStatus != null and httpStatus == 'fail'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'RESP'
+            AND
+            HTTP_STATUS &lt;&gt; 200
+            )
+        </if>
+        <if test="requestTime.startTime != null and requestTime.endTime != null">
+            AND EI_TIMESTAMP BETWEEN #{requestTime.startTime} AND
+            #{requestTime.endTime}
+        </if>
+    </select>
+
+    <select id="listREQMiFlowIdByConditions" resultType="java.lang.String">
+        SELECT
+        MI_FLOW_ID
+        FROM EVENTS
+        WHERE
+        MESSAGE_TYPE = 'REQ'
+        <if test="businessSystemId != null and businessSystemId != ''">
+            AND SERVICE_KEY IN (
+            SELECT
+            SERVICE_KEY
+            FROM
+            SERVICE
+            WHERE
+            BUSINESS_SYSTEM_ID = #{businessSystemId, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="serviceName != null and serviceName != ''">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'REQ'
+            AND
+            SERVICE_KEY IN (
+            SELECT
+            service_key
+            FROM
+            service
+            WHERE
+            name = #{serviceName, jdbcType=VARCHAR}
+            )
+            )
+        </if>
+        <if test="consumerIp != null and consumerIp != ''">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'REQ'
+            AND
+            CONSUMER_IP = #{consumerIp, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="type != null and type == 'soap'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MI_TRANSPORT_TYPE &lt;&gt; 'http://cxf.apache.org/transports/http'
+            )
+        </if>
+        <if test="type != null and type == 'restful'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MI_TRANSPORT_TYPE = 'http://cxf.apache.org/transports/http'
+            )
+        </if>
+        <if test="httpStatus != null and httpStatus == 'success'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'RESP'
+            AND
+            HTTP_STATUS = 200
+            )
+        </if>
+        <if test="httpStatus != null and httpStatus == 'fail'">
+            AND MI_FLOW_ID IN (
+            SELECT
+            MI_FLOW_ID
+            FROM
+            EVENTS
+            WHERE
+            MESSAGE_TYPE = 'RESP'
+            AND
+            HTTP_STATUS &lt;&gt; 200
+            )
+        </if>
+        <if test="requestTime.startTime != null and requestTime.endTime != null">
+            AND EI_TIMESTAMP BETWEEN #{requestTime.startTime} AND
+            #{requestTime.endTime}
+        </if>
+        <if test="eiTimeStampSort != null and eiTimeStampSort == 'asc'">
+            ORDER BY EI_TIMESTAMP ASC
+        </if>
+        <if test="eiTimeStampSort != null and eiTimeStampSort == 'desc'">
+            ORDER BY EI_TIMESTAMP DESC
+        </if>
+    </select>
+
+    <select id="listEventsByMiFlowIdList" resultMap="ServiceLogMap">
+        SELECT service.name,
+        bs.system_name AS business_system,
+        events.ID,
+        events.EI_TIMESTAMP,
+        events.EI_EVENT_TYPE,
+        events.ORIG_CUSTOM_ID,
+        events.ORIG_PROCESS_ID,
+        events.ORIG_HOSTNAME,
+        events.ORIG_IP,
+        events.ORIG_PRINCIPAL,
+        events.MI_PORT_TYPE,
+        events.MI_OPERATION_NAME,
+        events.MI_MESSAGE_ID,
+        events.MI_FLOW_ID,
+        events.MI_TRANSPORT_TYPE,
+        events.SERVICE_KEY,
+        events.HTTP_METHOD,
+        events.CONSUMER_IP,
+        events.HTTP_STATUS,
+        events.RESPONSE_TIME,
+        events.FAILURE_CAUSE,
+        events.MESSAGE_TYPE
+        FROM EVENTS events
+        LEFT JOIN service service ON events.service_key = service.service_key
+        LEFT JOIN business_system bs ON service.business_system_id = bs.id
+        WHERE
+        events.MI_FLOW_ID IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getCallTotal" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+    </select>
+
+    <select id="getCallTotal4Success" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND
+        HTTP_STATUS = 200
+    </select>
+
+    <select id="getCallTotal4Failure" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND
+        HTTP_STATUS &lt;&gt; 200
+    </select>
+
+    <select id="listDataCallTotalByEiTimestamp" resultMap="dailyTotalMap">
+        SELECT
+        DATE(EI_TIMESTAMP) AS date,
+        SUM(LENGTH (MESSAGE_CONTENT)) AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        DATE(EI_TIMESTAMP) BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+        DATE(EI_TIMESTAMP)
+    </select>
+
+    <select id="listCallTotalByEiTimestamp" resultMap="dailyTotalMap">
+        SELECT
+        DATE(EI_TIMESTAMP) AS date,
+        COUNT(MI_FLOW_ID) AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND
+        DATE(EI_TIMESTAMP) BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+        DATE(EI_TIMESTAMP)
+    </select>
+
+    <select id="getHttpMessage" resultMap="EventsMap">
+        SELECT
+        MI_FLOW_ID,
+        MI_TRANSPORT_TYPE,
+        MESSAGE_CONTENT,
+        HTTP_METHOD,
+        URI,
+        QUERYSTRING,
+        PROTOCOL,
+        HTTP_HEADERS,
+        HTTP_STATUS,
+        MESSAGE_TYPE
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = #{messageType}
+        AND
+        MI_FLOW_ID = #{miFlowId}
+    </select>
+
+    <select id="getCallTotalTop5" resultMap="APICallTop5DataMap">
+        SELECT temp.consumer_ip,
+        cs.system_name AS consumer_system,
+        temp.call_total
+        FROM (
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'REQ'
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_total DESC
+        OFFSET 0 ROWS
+        FETCH NEXT 5 ROWS ONLY
+        ) AS temp
+        LEFT JOIN consumer_system AS cs ON temp.consumer_ip = cs.ip
+    </select>
+
+    <select id="getFailureTotalTop5" resultMap="APICallTop5DataMap">
+        SELECT temp.consumer_ip,
+        cs.system_name AS consumer_system,
+        temp.call_failure_total
+        FROM (
+        SELECT
+        CONSUMER_IP AS consumer_ip,
+        COUNT(1) AS call_failure_total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        AND HTTP_STATUS &lt;&gt; 200
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_failure_total DESC
+        OFFSET 0 ROWS
+        FETCH NEXT 5 ROWS ONLY
+        ) AS temp
+        LEFT JOIN consumer_system AS cs ON temp.consumer_ip = cs.ip
+    </select>
+
+    <select id="getCallTotal4CallAnalysis_COUNT" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM (
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'REQ'
+        <if test="consumerIP != null and consumerIP != ''">
+            AND CONSUMER_IP = #{consumerIP}
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ) AS temp
+    </select>
+
+    <select id="getCallTotal4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT temp.consumer_ip,
+        cs.system_name AS consumer_system,
+        temp.call_total
+        FROM (
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'REQ'
+        <if test="consumerIP != null and consumerIP != ''">
+            AND CONSUMER_IP = #{consumerIP}
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_total DESC
+        ) AS temp
+        LEFT JOIN consumer_system AS cs ON temp.consumer_ip = cs.ip
+    </select>
+
+    <select id="getCallFailureTotal4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_failure_total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS &lt;&gt; 200
+        <if test="consumerIPList != null and consumerIPList.size > 0">
+            AND CONSUMER_IP IN
+            <foreach item="consumerIP" index="index" collection="consumerIPList" open="(" separator="," close=")">
+                #{consumerIP}
+            </foreach>
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_failure_total DESC
+    </select>
+
+    <select id="getCallFailureTotalFrequency4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_failure_total_4_frequency
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS &lt;&gt; 200
+        AND FAILURE_CAUSE = 'FREQUENCY'
+        <if test="consumerIPList != null and consumerIPList.size > 0">
+            AND CONSUMER_IP IN
+            <foreach item="consumerIP" index="index" collection="consumerIPList" open="(" separator="," close=")">
+                #{consumerIP}
+            </foreach>
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_failure_total_4_frequency DESC
+    </select>
+
+    <select id="getCallFailureTotalFlow4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_failure_total_4_flow
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS &lt;&gt; 200
+        AND FAILURE_CAUSE = 'FLOW'
+        <if test="consumerIPList != null and consumerIPList.size > 0">
+            AND CONSUMER_IP IN
+            <foreach item="consumerIP" index="index" collection="consumerIPList" open="(" separator="," close=")">
+                #{consumerIP}
+            </foreach>
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_failure_total_4_flow DESC
+    </select>
+
+    <select id="getCallFailureTotalIP4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT
+        CONSUMER_IP AS consumer_ip, COUNT(1) AS call_failure_total_4_ip
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS &lt;&gt; 200
+        AND FAILURE_CAUSE = 'IP'
+        <if test="consumerIPList != null and consumerIPList.size > 0">
+            AND CONSUMER_IP IN
+            <foreach item="consumerIP" index="index" collection="consumerIPList" open="(" separator="," close=")">
+                #{consumerIP}
+            </foreach>
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+        ORDER BY
+        call_failure_total_4_ip DESC
+    </select>
+
+    <select id="getAVGResponseTime4CallAnalysis" resultMap="APICallAnalysisTableMap">
+        SELECT
+        CONSUMER_IP AS consumer_ip, AVG(RESPONSE_TIME) AS avg_response_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        MESSAGE_TYPE = 'RESP'
+        <if test="consumerIPList != null and consumerIPList.size > 0">
+            AND CONSUMER_IP IN
+            <foreach item="consumerIP" index="index" collection="consumerIPList" open="(" separator="," close=")">
+                #{consumerIP}
+            </foreach>
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey}
+        </if>
+        <if test="timeInterval.startTime != null and timeInterval.endTime != null">
+            AND DATE(EI_TIMESTAMP)
+            BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        </if>
+        GROUP BY
+        consumer_ip
+    </select>
+
+    <select id="getServiceSuccessTotalByDate" resultMap="dailyTotalMap">
+        SELECT DATE(EI_TIMESTAMP) AS date, COUNT(1) AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        <if test="serviceKey != null and serviceKey != ''">
+            SERVICE_KEY = #{serviceKey}
+        </if>
+        AND MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS = 200
+        AND DATE(EI_TIMESTAMP) BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        GROUP BY DATE(EI_TIMESTAMP)
+    </select>
+
+    <select id="getServiceFailureTotalByDate" resultMap="dailyTotalMap">
+        SELECT DATE(EI_TIMESTAMP) AS date, COUNT(1) AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        <if test="serviceKey != null and serviceKey != ''">
+            SERVICE_KEY = #{serviceKey}
+        </if>
+        AND MESSAGE_TYPE = 'RESP'
+        AND HTTP_STATUS &lt;&gt; 200
+        AND DATE(EI_TIMESTAMP) BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        GROUP BY DATE(EI_TIMESTAMP)
+    </select>
+
+    <select id="getServiceResponseTimeByDate" resultMap="dailyTotalMap">
+        SELECT DATE(EI_TIMESTAMP) AS date, AVG(RESPONSE_TIME) AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        <if test="serviceKey != null and serviceKey != ''">
+            SERVICE_KEY = #{serviceKey}
+        </if>
+        AND MESSAGE_TYPE = 'RESP'
+        AND DATE(EI_TIMESTAMP) BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        GROUP BY DATE(EI_TIMESTAMP)
+    </select>
+
+    <select id="getServiceMessageSizeByDate" resultMap="dailyTotalMap">
+        SELECT DATE(EI_TIMESTAMP) AS date, AVG(LENGTH (MESSAGE_CONTENT)) * 2 AS total
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        <if test="serviceKey != null and serviceKey != ''">
+            SERVICE_KEY = #{serviceKey}
+        </if>
+        AND DATE(EI_TIMESTAMP) BETWEEN #{timeInterval.startTime} AND #{timeInterval.endTime}
+        GROUP BY DATE(EI_TIMESTAMP)
+    </select>
+
+</mapper>

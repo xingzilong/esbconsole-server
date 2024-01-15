@@ -1,0 +1,26 @@
+<assembly>
+    <id>inforsuite-esb-console_test-report</id>
+
+    <fileSets>
+        <fileSet>
+            <directory>target/site</directory>
+            <outputDirectory>./report/surefire-report</outputDirectory>
+            <!--            <includes>-->
+            <!--                <include>css/**</include>-->
+            <!--                <include>images/**</include>-->
+            <!--                <include>surefire-report.html</include>-->
+            <!--            </includes>-->
+            <excludes>
+                <exclude>jacoco-aggregate/**</exclude>
+            </excludes>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+        <fileSet>
+            <directory>target/site/jacoco-aggregate</directory>
+            <outputDirectory>./report/jacoco</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+    </fileSets>
+</assembly>

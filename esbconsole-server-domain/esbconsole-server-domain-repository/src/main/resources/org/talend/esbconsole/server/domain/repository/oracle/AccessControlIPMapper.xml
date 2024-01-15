@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.AccessControlIPDAO">
+    <resultMap id="AccessControlIPMap" type="org.talend.esbconsole.server.domain.repository.entity.AccessControlIPDO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="black_list" jdbcType="VARCHAR" property="blackList"/>
+        <result column="white_list" jdbcType="VARCHAR" property="whiteList"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="IPControlDTOMap" type="org.talend.esbconsole.server.domain.api.model.IPControlModel">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="black_list" jdbcType="VARCHAR" property="blackList"/>
+        <result column="white_list" jdbcType="VARCHAR" property="whiteList"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="name" jdbcType="VARCHAR" property="serviceName"/>
+    </resultMap>
+
+    <!-- 数据库表service表与实体类ServiceDO的映射关系 -->
+    <resultMap id="ServiceMap" type="org.talend.esbconsole.server.domain.repository.entity.ServiceDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
+        <result column="bundle_id" jdbcType="BIGINT" property="bundleId"/>
+        <result column="feature_name" jdbcType="VARCHAR" property="featureName"/>
+        <result column="bundle_name" jdbcType="VARCHAR" property="bundleName"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="enabled_sam" jdbcType="CHAR" property="enabledSAM"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        , service_key, type, black_list, white_list, status, create_time, update_time
+    </sql>
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        access_control_ip
+    </sql>
+    <sql id="ALLFIELDS">
+        id
+        , service_key, type, black_list, white_list, status, create_time, update_time
+    </sql>
+
+    <select id="listAllAccessControlIP" resultMap="AccessControlIPMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+    </select>
+
+    <select id="getAccessControlIP" resultMap="IPControlDTOMap">
+        SELECT service.name,
+               acip.id,
+               acip.service_key,
+               acip.type,
+               acip.black_list,
+               acip.white_list,
+               acip.status,
+               acip.create_time,
+               acip.update_time
+        FROM access_control_ip acip
+                 LEFT JOIN service service ON acip.service_key = service.service_key
+    </select>
+
+    <select id="getAccessControlIPByConditions" resultMap="IPControlDTOMap">
+        SELECT service.name,
+        acip.id,
+        acip.service_key,
+        acip.type,
+        acip.black_list,
+        acip.white_list,
+        acip.status,
+        acip.create_time,
+        acip.update_time
+        FROM access_control_ip acip
+        LEFT JOIN service service ON acip.service_key = service.service_key
+        <where>
+            <if test="serviceName != null and serviceName != ''">
+                AND service.name LIKE CONCAT(CONCAT('%', #{serviceName, jdbcType=VARCHAR}), '%')
+            </if>
+            <if test="type != null and type != ''">
+                AND acip.type = #{type, jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''">
+                AND acip.status = #{status,jdbcType=CHAR}
+            </if>
+            <if test="createTime.startTime != null and createTime.endTime != null">
+                AND acip.create_time BETWEEN TO_TIMESTAMP(#{createTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD') AND
+                TO_TIMESTAMP(#{createTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD')
+            </if>
+        </where>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果升序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'asc' and createTimeSort != null">
+            ORDER BY acip.create_time ASC
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'desc' and createTimeSort != null">
+            ORDER BY acip.create_time DESC
+        </if>
+    </select>
+
+    <select id="getServiceNoBindIPControl" resultMap="ServiceMap">
+        SELECT service.id
+             , service.name
+             , service.file_name
+             , service.file_type
+             , service.bundle_id
+             , service.feature_name
+             , service.bundle_name
+             , service.service_key
+             , service.enabled_sam
+             , service.description
+             , service.status
+             , service.create_time
+             , service.update_time
+        FROM service service
+                 LEFT JOIN access_control_ip acip ON service.service_key = acip.service_key
+        WHERE service.enabled_sam = '1'
+          AND acip.service_key IS NULL
+    </select>
+
+    <select id="getIPControlById" resultMap="IPControlDTOMap">
+        SELECT service.name,
+               acip.id,
+               acip.service_key,
+               acip.type,
+               acip.black_list,
+               acip.white_list,
+               acip.status,
+               acip.create_time,
+               acip.update_time
+        FROM access_control_ip acip
+                 LEFT JOIN service service ON acip.service_key = service.service_key
+        WHERE acip.id = #{id}
+    </select>
+</mapper>

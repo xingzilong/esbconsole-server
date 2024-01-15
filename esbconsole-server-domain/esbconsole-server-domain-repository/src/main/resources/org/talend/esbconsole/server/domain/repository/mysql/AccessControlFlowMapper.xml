@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.AccessControlFlowDAO">
+    <resultMap id="AccessControlFlowMap"
+               type="org.talend.esbconsole.server.domain.repository.entity.AccessControlFlowDO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="time_interval" jdbcType="BIGINT" property="timeInterval"/>
+        <result column="interval_threshold" jdbcType="BIGINT" property="intervalThreshold"/>
+        <result column="single_threshold" jdbcType="BIGINT" property="singleThreshold"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="FlowControlDTOMap" type="org.talend.esbconsole.server.domain.api.model.FlowControlModel">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="time_interval" jdbcType="BIGINT" property="timeInterval"/>
+        <result column="interval_threshold" jdbcType="BIGINT" property="intervalThreshold"/>
+        <result column="single_threshold" jdbcType="BIGINT" property="singleThreshold"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="name" jdbcType="VARCHAR" property="serviceName"/>
+    </resultMap>
+
+    <!-- 数据库表service表与实体类ServiceDO的映射关系 -->
+    <resultMap id="ServiceMap" type="org.talend.esbconsole.server.domain.repository.entity.ServiceDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
+        <result column="bundle_id" jdbcType="BIGINT" property="bundleId"/>
+        <result column="feature_name" jdbcType="VARCHAR" property="featureName"/>
+        <result column="bundle_name" jdbcType="VARCHAR" property="bundleName"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="enabled_sam" jdbcType="CHAR" property="enabledSAM"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        access_control_flow
+    </sql>
+    <sql id="ALLFIELDS">
+        id
+        , service_key, `type`, time_interval, interval_threshold, single_threshold, `status`,
+    create_time, update_time
+    </sql>
+
+    <select id="listAllAccessControlFlow" resultMap="AccessControlFlowMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+    </select>
+
+    <select id="getAccessControlFlow" resultMap="FlowControlDTOMap">
+        SELECT service.name,
+               acflow.id,
+               acflow.service_key,
+               acflow.`type`,
+               acflow.time_interval,
+               acflow.interval_threshold,
+               acflow.single_threshold,
+               acflow.`status`,
+               acflow.create_time,
+               acflow.update_time
+        FROM access_control_flow acflow
+                 LEFT JOIN service service ON acflow.service_key = service.service_key
+    </select>
+
+    <select id="getAccessControlFlowByConditions" resultMap="FlowControlDTOMap">
+        SELECT service.name,
+        acflow.id,
+        acflow.service_key,
+        acflow.`type`,
+        acflow.time_interval,
+        acflow.interval_threshold,
+        acflow.single_threshold,
+        acflow.`status`,
+        acflow.create_time,
+        acflow.update_time
+        FROM access_control_flow acflow
+        LEFT JOIN service service ON acflow.service_key = service.service_key
+        <where>
+            <if test="serviceName != null and serviceName != ''">
+                AND service.name LIKE CONCAT('%', #{serviceName, jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                AND acflow.`type` = #{type, jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''">
+                AND acflow.`status` = #{status,jdbcType=CHAR}
+            </if>
+            <if test="createTime.startTime != null and createTime.endTime != null">
+                AND acflow.create_time BETWEEN #{createTime.startTime,jdbcType=CHAR} AND
+                #{createTime.endTime,jdbcType=CHAR}
+            </if>
+        </where>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序升序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'asc' and createTimeSort != null">
+            ORDER BY acflow.create_time ASC
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'desc' and createTimeSort != null">
+            ORDER BY acflow.create_time DESC
+        </if>
+    </select>
+
+    <select id="getServiceNoBindFlowControl" resultMap="ServiceMap">
+        SELECT service.id
+             , service.name
+             , service.file_name
+             , service.file_type
+             , service.bundle_id
+             , service.feature_name
+             , service.bundle_name
+             , service.service_key
+             , service.enabled_sam
+             , service.description
+             , service.status
+             , service.create_time
+             , service.update_time
+        FROM `service` service
+                 LEFT JOIN `access_control_flow` acflow ON service.service_key = acflow.service_key
+        WHERE service.enabled_sam = '1'
+          AND acflow.service_key IS NULL
+    </select>
+
+    <select id="getFlowControlById" resultMap="FlowControlDTOMap">
+        SELECT service.`name`,
+               acflow.`id`,
+               acflow.`service_key`,
+               acflow.`type`,
+               acflow.`time_interval`,
+               acflow.`interval_threshold`,
+               acflow.`single_threshold`,
+               acflow.`status`,
+               acflow.`create_time`,
+               acflow.`update_time`
+        FROM access_control_flow acflow
+                 LEFT JOIN service service ON acflow.service_key = service.service_key
+        WHERE acflow.id = #{id}
+    </select>
+</mapper>

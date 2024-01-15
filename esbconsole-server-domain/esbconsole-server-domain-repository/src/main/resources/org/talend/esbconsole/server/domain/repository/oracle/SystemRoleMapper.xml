@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.SystemRoleDAO">
+    <!-- 数据库表sysytem_role表与实体类SystemRole的映射关系 -->
+    <resultMap id="SystemRoleMap" type="org.talend.esbconsole.server.domain.repository.entity.SystemRoleDO">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="delete_flag" jdbcType="CHAR" property="deleteFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+    </resultMap>
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        system_role
+    </sql>
+    <sql id="ALLFIELDS">
+        id
+        , name, role_name, description,  status, delete_flag, create_time, update_time
+    </sql>
+
+    <insert id="saveSystemRole">
+        INSERT INTO
+        <include refid="TABLENAME"/>
+        (id, name, role_name, description, create_time, update_time)
+        VALUES
+        (#{id}, #{name}, #{roleName}, #{description},
+        #{createTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler},
+        #{updateTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler})
+    </insert>
+
+    <delete id="removeSystemRole">
+        DELETE
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </delete>
+
+    <update id="updateSystemRole">
+        UPDATE
+        <include refid="TABLENAME"/>
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                create_time =
+                #{createTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler},
+            </if>
+            <if test="updateTime != null">
+                update_time =
+                #{updateTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getSystemRoleNameByRoleId" resultType="java.lang.String">
+        SELECT
+        role_name
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{roleId}
+    </select>
+
+    <select id="getSystemRoleByRoleName" resultMap="SystemRoleMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        role_name = #{roleName}
+    </select>
+
+    <select id="listAllSystemRoles" resultMap="SystemRoleMap">
+        SELECT
+        id, name, role_name, status, delete_flag, create_time, update_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        delete_flag = '0'
+    </select>
+
+    <select id="listAllSystemRolesByConditions" resultMap="SystemRoleMap">
+        SELECT
+        id
+        , name, role_name, description, status, delete_flag, create_time, update_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        delete_flag = '0'
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="roleName != null and roleName != ''">
+            AND role_name LIKE CONCAT(CONCAT('%', #{roleName, jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status,jdbcType=CHAR}
+        </if>
+        <if test="createTime.startTime != null and createTime.endTime != null">
+            AND create_time BETWEEN TO_TIMESTAMP(#{createTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{createTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD')
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果升序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'asc' and createTimeSort != null">
+            ORDER BY create_time ASC
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'desc' and createTimeSort != null">
+            ORDER BY create_time DESC
+        </if>
+    </select>
+
+    <select id="getSystemRoleById" resultMap="SystemRoleMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </select>
+
+</mapper>

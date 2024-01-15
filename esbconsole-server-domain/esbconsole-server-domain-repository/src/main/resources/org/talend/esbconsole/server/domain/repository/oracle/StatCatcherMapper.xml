@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.StatCatcherDAO">
+    <resultMap id="StatCatcherMap" type="org.talend.esbconsole.server.domain.repository.entity.StatCatcherDO">
+        <result column="moment" jdbcType="TIMESTAMP" property="moment"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="father_pid" jdbcType="VARCHAR" property="fatherPid"/>
+        <result column="root_pid" jdbcType="VARCHAR" property="rootPid"/>
+        <result column="system_pid" jdbcType="BIGINT" property="systemPid"/>
+        <result column="project" jdbcType="VARCHAR" property="project"/>
+        <result column="job" jdbcType="VARCHAR" property="job"/>
+        <result column="job_repository_id" jdbcType="VARCHAR" property="jobRepositoryId"/>
+        <result column="job_version" jdbcType="VARCHAR" property="jobVersion"/>
+        <result column="context" jdbcType="VARCHAR" property="context"/>
+        <result column="origin" jdbcType="VARCHAR" property="origin"/>
+        <result column="message_type" jdbcType="VARCHAR" property="messageType"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="duration" jdbcType="BIGINT" property="duration"/>
+    </resultMap>
+
+    <resultMap id="dailyTotalMap" type="org.talend.esbconsole.server.domain.api.model.TaskProgressReportDTO">
+        <id property="date" column="date" jdbcType="TIMESTAMP"
+            typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTypeHandler"/>
+        <result property="successTotal" column="successTotal" jdbcType="INTEGER"/>
+        <result property="failureTotal" column="failureTotal" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="timedTaskTable" type="org.talend.esbconsole.server.domain.api.model.TimedTaskTableDTO">
+        <id property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="job" column="job" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="INTEGER"/>
+        <result property="executTime" column="executTime" jdbcType="TIMESTAMP"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        stat_catcher
+    </sql>
+    <sql id="ALLFIELDS">
+        moment
+        , uuid, pid,
+      father_pid, root_pid, system_pid,
+      project, job, job_repository_id,
+      job_version, context, origin,
+      message_type, message, duration
+    </sql>
+
+    <select id="listStatCatchersByConditions" resultMap="StatCatcherMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        1 = 1
+        <if test="eiTimestamp != null and eiTimestamp != ''">
+            AND EI_TIMESTAMP = #{eiTimestamp,jdbcType=TIMESTAMP},
+        </if>
+        <if test="eiEventType != null and eiEventType != ''">
+            AND EI_EVENT_TYPE = #{eiEventType,jdbcType=VARCHAR},
+        </if>
+        <if test="origCustomId != null and origCustomId != ''">
+            AND ORIG_CUSTOM_ID = #{origCustomId,jdbcType=VARCHAR},
+        </if>
+        <if test="origProcessId != null and origProcessId != ''">
+            AND ORIG_PROCESS_ID = #{origProcessId,jdbcType=VARCHAR},
+        </if>
+        <if test="origHostname != null and origHostname != ''">
+            AND ORIG_HOSTNAME = #{origHostname,jdbcType=VARCHAR},
+        </if>
+        <if test="origIp != null and origIp != ''">
+            AND ORIG_IP = #{origIp,jdbcType=VARCHAR},
+        </if>
+        <if test="origPrincipal != null and origPrincipal != ''">
+            AND ORIG_PRINCIPAL = #{origPrincipal,jdbcType=VARCHAR},
+        </if>
+        <if test="miPortType != null and miPortType != ''">
+            AND MI_PORT_TYPE = #{miPortType,jdbcType=VARCHAR},
+        </if>
+        <if test="miOperationName != null and miOperationName != ''">
+            AND MI_OPERATION_NAME = #{miOperationName,jdbcType=VARCHAR},
+        </if>
+        <if test="miMessageId != null and miMessageId != ''">
+            AND MI_MESSAGE_ID = #{miMessageId,jdbcType=VARCHAR},
+        </if>
+        <if test="miFlowId != null and miFlowId != ''">
+            AND MI_FLOW_ID = #{miFlowId,jdbcType=VARCHAR},
+        </if>
+        <if test="miTransportType != null and miTransportType != ''">
+            AND MI_TRANSPORT_TYPE = #{miTransportType,jdbcType=VARCHAR},
+        </if>
+        <if test="messageContent != null and messageContent != ''">
+            AND MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+        </if>
+        <if test="serviceKey != null and serviceKey != ''">
+            AND SERVICE_KEY = #{serviceKey,jdbcType=VARCHAR},
+        </if>
+        <if test="httpMethod != null and httpMethod != ''">
+            AND HTTP_METHOD = #{httpMethod,jdbcType=VARCHAR},
+        </if>
+        <if test="uri != null and uri != ''">
+            AND URI = #{uri,jdbcType=VARCHAR},
+        </if>
+        <if test="querystring != null and querystring != ''">
+            AND QUERYSTRING = #{querystring,jdbcType=VARCHAR},
+        </if>
+        <if test="protocol != null and protocol != ''">
+            AND PROTOCOL = #{protocol,jdbcType=VARCHAR},
+        </if>
+        <if test="httpHeaders != null and httpHeaders != ''">
+            AND HTTP_HEADERS = #{httpHeaders,jdbcType=VARCHAR},
+        </if>
+        <if test="consumerIp != null and consumerIp != ''">
+            AND CONSUMER_IP = #{consumerIp,jdbcType=VARCHAR},
+        </if>
+        <if test="httpStatus != null and httpStatus != ''">
+            AND HTTP_STATUS = #{httpStatus,jdbcType=INTEGER},
+        </if>
+        <if test="responseTime != null and responseTime != ''">
+            AND RESPONSE_TIME = #{responseTime,jdbcType=BIGINT},
+        </if>
+        <if test="failureCause != null and failureCause != ''">
+            AND FAILURE_CAUSE = #{failureCause,jdbcType=VARCHAR},
+        </if>
+        <if test="contentCut != null and contentCut != ''">
+            AND CONTENT_CUT = #{contentCut,jdbcType=BOOLEAN},
+        </if>
+    </select>
+
+    <!--  自定义总数查询  -->
+    <select id="listUUIdByConditions_COUNT" resultType="Long">
+        SELECT COUNT(tempTable.uuid)
+        FROM (
+        SELECT uuid
+        <if test="executTime.startTime != null and executTime.endTime != null and executTime.startTime != '' and executTime.endTime != ''">
+            , MIN(moment) AS moment
+        </if>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE uuid &lt;&gt; 'init'
+        <if test="job != null and job != ''">
+            AND job LIKE CONCAT(CONCAT('%', #{job, jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="status != null and status == 'success'">
+            AND message = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status == 'failure'">
+            AND message = #{status, jdbcType=VARCHAR}
+        </if>
+        GROUP BY uuid
+        ) tempTable
+        <where>
+            <if test="executTime.startTime != null and executTime.endTime != null and executTime.startTime != '' and executTime.endTime != ''">
+                AND tempTable.moment
+                BETWEEN TO_TIMESTAMP(#{executTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS') AND
+                TO_TIMESTAMP(#{executTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS')
+            </if>
+        </where>
+    </select>
+
+    <select id="listUUIdByConditions" resultType="java.lang.String">
+        SELECT tempTable.uuid
+        FROM (
+        SELECT uuid, MIN(moment) AS moment
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE uuid &lt;&gt; 'init'
+        <if test="job != null and job != ''">
+            AND job LIKE CONCAT(CONCAT('%', #{job, jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="status != null and status == 'success'">
+            AND message = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status == 'failure'">
+            AND message = #{status, jdbcType=VARCHAR}
+        </if>
+        GROUP BY uuid
+        <if test="executTimeSort != null and executTimeSort == 'asc'">
+            ORDER BY moment ASC
+        </if>
+        <if test="executTimeSort != null and executTimeSort == 'desc'">
+            ORDER BY moment DESC
+        </if>
+        ) tempTable
+        <where>
+            <if test="executTime.startTime != null and executTime.endTime != null and executTime.startTime != '' and executTime.endTime != ''">
+                AND tempTable.moment
+                BETWEEN TO_TIMESTAMP(#{executTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS') AND
+                TO_TIMESTAMP(#{executTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS')
+            </if>
+        </where>
+    </select>
+
+    <select id="listStatCatchersByUUIdList" resultMap="StatCatcherMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        uuid IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="listStatCatcherByUUId" resultMap="StatCatcherMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        uuid = #{uuid, jdbcType=VARCHAR}
+    </select>
+
+    <select id="listTaskProgressReportTotal" resultMap="dailyTotalMap">
+        SELECT TO_TIMESTAMP(moment) AS "date",
+        COUNT(DISTINCT CASE WHEN message = 'success' THEN uuid END) AS successTotal,
+        COUNT(DISTINCT CASE WHEN message = 'failure' THEN uuid END) AS failureTotal
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        moment BETWEEN TO_TIMESTAMP(#{startDate,jdbcType=CHAR}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{endDate,jdbcType=CHAR}, 'YYYY-MM-DD')
+        GROUP BY TO_TIMESTAMP(moment)
+    </select>
+
+    <select id="getTaskExecuteSuccess" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT uuid)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE job = #{taskJobName}
+        AND pid = father_pid
+        AND father_pid = root_pid
+        AND message = 'success'
+        <if test="startTime != null and endTime != null">
+            AND moment
+            BETWEEN TO_TIMESTAMP(#{startTime}, 'YYYY-MM-DD') AND
+            TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD')
+        </if>
+    </select>
+
+    <select id="getTaskExecuteFailure" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT uuid)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE job = #{taskJobName}
+        AND pid = father_pid
+        AND father_pid = root_pid
+        AND message = 'failure'
+        <if test="startTime != null and endTime != null">
+            AND moment
+            BETWEEN TO_TIMESTAMP(#{startTime}, 'YYYY-MM-DD') AND
+            TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD')
+        </if>
+    </select>
+
+    <select id="getTimedTask" resultMap="StatCatcherMap" parameterType="java.lang.String">
+        SELECT
+        *
+        FROM
+            (
+            SELECT
+            TMP_PAGE.*,
+            ROWNUM PAGEHELPER_ROW_ID
+            FROM
+            (
+                SELECT MIN(moment) AS moment, MAX(job) AS job, MAX(duration) AS duration, uuid
+                from
+                <include refid="TABLENAME"/>
+                where job = #{taskJobName}
+                AND pid = father_pid
+                AND father_pid = root_pid
+                <if test="startTime != null and endTime != null">
+                    AND moment
+                    BETWEEN TO_TIMESTAMP(#{startTime}, 'YYYY-MM-DD') AND
+                    TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD')
+                </if>
+                group by uuid
+                order by moment DESC) TMP_PAGE)
+        WHERE
+        PAGEHELPER_ROW_ID &lt;= 7
+        AND PAGEHELPER_ROW_ID &gt; 0
+    </select>
+
+    <select id="listUUIdByConditions4Analysis" resultType="java.lang.String">
+        SELECT tempTable.uuid
+        FROM (
+        SELECT uuid, MIN(moment) AS moment
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE uuid &lt;&gt; 'init'
+        AND pid = father_pid
+        AND father_pid = root_pid
+        <if test="jobNames != null and jobNames.size > 0">
+            AND job IN
+            <foreach item="job" index="index" collection="jobNames" open="(" separator="," close=")">
+                #{job}
+            </foreach>
+        </if>
+        GROUP BY uuid
+        ORDER BY moment DESC
+        ) tempTable
+        <where>
+            <if test="executTime.startTime != null and executTime.endTime != null and executTime.startTime != '' and executTime.endTime != ''">
+                AND tempTable.moment
+                BETWEEN TO_TIMESTAMP(#{executTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS') AND
+                TO_TIMESTAMP(#{executTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD HH24:MI:SS')
+            </if>
+        </where>
+    </select>
+
+    <select id="listStatCatchersByUUIdList4Analysis" resultMap="StatCatcherMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        uuid IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

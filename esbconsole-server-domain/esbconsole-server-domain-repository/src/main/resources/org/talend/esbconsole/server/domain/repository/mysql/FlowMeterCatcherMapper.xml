@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.FlowMeterCatcherDAO">
+    <resultMap id="FlowMeterCatcherMap" type="org.talend.esbconsole.server.domain.repository.entity.FlowMeterCatcherDO">
+        <result column="moment" jdbcType="TIMESTAMP" property="moment"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="father_pid" jdbcType="VARCHAR" property="fatherPid"/>
+        <result column="root_pid" jdbcType="VARCHAR" property="rootPid"/>
+        <result column="system_pid" jdbcType="BIGINT" property="systemPid"/>
+        <result column="project" jdbcType="VARCHAR" property="project"/>
+        <result column="job" jdbcType="VARCHAR" property="job"/>
+        <result column="job_repository_id" jdbcType="VARCHAR" property="jobRepositoryId"/>
+        <result column="job_version" jdbcType="VARCHAR" property="jobVersion"/>
+        <result column="context" jdbcType="VARCHAR" property="context"/>
+        <result column="origin" jdbcType="VARCHAR" property="origin"/>
+        <result column="label" jdbcType="VARCHAR" property="label"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="reference" jdbcType="INTEGER" property="reference"/>
+        <result column="thresholds" jdbcType="VARCHAR" property="thresholds"/>
+    </resultMap>
+
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        flow_meter_catcher
+    </sql>
+    <sql id="ALLFIELDS">
+        moment
+        , uuid, pid,
+      father_pid, root_pid, system_pid,
+      project, job, job_repository_id,
+      job_version, context, origin,
+      `label`, `count`, reference,
+      thresholds
+    </sql>
+
+    <select id="listFlowMeterCatcherByUUId" resultMap="FlowMeterCatcherMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        uuid = #{uuid, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getCountSUMByUUId" resultType="java.lang.Long">
+        SELECT
+        SUM(count)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        uuid = #{uuid, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getFlowMeterTotal" resultType="java.lang.Long">
+        SELECT
+        SUM(count)
+        FROM
+        <include refid="TABLENAME"/>
+    </select>
+
+</mapper>

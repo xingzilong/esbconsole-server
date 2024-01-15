@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.SystemUserDAO">
+    <resultMap id="SystemUserMap" type="org.talend.esbconsole.server.domain.repository.entity.SystemUserDO">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="delete_flag" jdbcType="CHAR" property="deleteFlag"/>
+        <!-- 修改为 DERBY 支持的 TIMESTAMP 类型 -->
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"
+                typeHandler="org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler"/>
+    </resultMap>
+
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        system_user_c
+    </sql>
+    <sql id="ALLFIELDS">
+        id
+        , name, user_name, password, email, phone_number, status, delete_flag, create_time, update_time
+    </sql>
+
+    <insert id="saveSystemUser">
+        INSERT INTO
+        <include refid="TABLENAME"/>
+        (id, name, user_name, password, email, phone_number, create_time, update_time)
+        VALUES
+        (#{id}, #{name}, #{userName}, #{password}, #{email}, #{phoneNumber},
+        #{createTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler},
+        #{updateTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler})
+    </insert>
+
+    <delete id="removeSystemUser">
+        DELETE
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </delete>
+
+    <update id="updateSystemUser">
+        UPDATE
+        <include refid="TABLENAME"/>
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time =
+                #{updateTime, typeHandler=org.talend.esbconsole.server.domain.repository.handler.LocalDateTimeTypeHandler},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getSystemUserByUserName" resultMap="SystemUserMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        delete_flag = '0'
+        AND
+        status = '1'
+        AND
+        user_name = #{userName}
+    </select>
+
+    <select id="getUserNameById" resultType="java.lang.String">
+        SELECT
+        user_name
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{userId}
+    </select>
+
+    <select id="listAllSystemUsers" resultMap="SystemUserMap">
+        SELECT
+        id
+        , name, user_name, email, phone_number, status, delete_flag, create_time, update_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        delete_flag = '0'
+    </select>
+
+    <select id="listAllSystemUsersByConditions" resultMap="SystemUserMap">
+        SELECT
+        id
+        , name, user_name, email, phone_number, status, delete_flag, create_time, update_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        delete_flag = '0'
+        <if test="name != null and name != ''">
+            AND name LIKE '%' || #{name, jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="userName != null and userName != ''">
+            AND user_name LIKE '%' || #{userName, jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="email != null and email != ''">
+            AND email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            AND phone_number = #{phoneNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status,jdbcType=CHAR}
+        </if>
+        <!-- 添加对 Derby 的日期查询支持 -->
+        <if test="createTime.startTime != null and createTime.endTime != null">
+            AND DATE(create_time) BETWEEN #{createTime.startTime} AND #{createTime.endTime}
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果排序 -->
+        <choose>
+            <when test="createTimeSort == 'asc' and createTimeSort != null">
+                ORDER BY DATE(create_time) ASC
+            </when>
+            <when test="createTimeSort == 'desc' and createTimeSort != null">
+                ORDER BY DATE(create_time) DESC
+            </when>
+        </choose>
+    </select>
+
+    <select id="getSystemUserById" resultMap="SystemUserMap">
+        SELECT
+        id
+        , name, user_name, email, phone_number, status, delete_flag, create_time, update_time
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{userId}
+    </select>
+
+    <select id="getPasswordById" resultType="java.lang.String">
+        SELECT
+        password
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </select>
+
+</mapper>

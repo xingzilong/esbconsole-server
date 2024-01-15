@@ -1,0 +1,88 @@
+<assembly>
+    <id>inforsuite-esb-console</id>
+
+    <fileSets>
+        <!-- 启动脚本目录 -->
+        <fileSet>
+            <directory>src/main/bin</directory>
+            <outputDirectory>./bin</outputDirectory>
+            <includes>
+                <include>*.bat</include>
+                <include>*.cmd</include>
+            </includes>
+            <lineEnding>dos</lineEnding>
+            <fileMode>0755</fileMode>
+            <directoryMode>777</directoryMode>
+        </fileSet>
+
+        <fileSet>
+            <directory>src/main/bin</directory>
+            <outputDirectory>./bin</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0755</fileMode>
+            <directoryMode>777</directoryMode>
+        </fileSet>
+
+        <!-- 配置文件目录 -->
+        <fileSet>
+            <directory>src/main/conf</directory>
+            <outputDirectory>./conf</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- 数据库初始化配置文件目录 -->
+        <fileSet>
+            <directory>src/main/resources/db</directory>
+            <outputDirectory>./conf/db</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- https证书配置文件目录 -->
+        <fileSet>
+            <directory>src/main/resources/keystore</directory>
+            <outputDirectory>./conf/keystore</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- 日志文件目录 -->
+        <fileSet>
+            <directory>target/log</directory>
+            <outputDirectory>./log</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- web资源文件目录 -->
+        <fileSet>
+            <directory>target/web</directory>
+            <outputDirectory>./web</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- 启动jar -->
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>./target</outputDirectory>
+            <includes>
+                <include>${start.package.name}.jar</include>
+            </includes>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+
+        <!-- 依赖包 -->
+        <fileSet>
+            <directory>target/lib</directory>
+            <outputDirectory>./lib</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>755</directoryMode>
+        </fileSet>
+    </fileSets>
+</assembly>

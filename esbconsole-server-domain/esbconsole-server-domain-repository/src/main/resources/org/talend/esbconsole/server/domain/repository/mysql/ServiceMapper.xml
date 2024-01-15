@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.talend.esbconsole.server.domain.repository.mapper.ServiceDAO">
+    <!-- 数据库表service表与实体类ServiceDO的映射关系 -->
+    <resultMap id="ServiceMap" type="org.talend.esbconsole.server.domain.repository.entity.ServiceDO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="business_system_id" jdbcType="VARCHAR" property="businessSystemId"/>
+        <result column="service_type" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="job" jdbcType="VARCHAR" property="job"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
+        <result column="bundle_id" jdbcType="BIGINT" property="bundleId"/>
+        <result column="feature_name" jdbcType="VARCHAR" property="featureName"/>
+        <result column="bundle_name" jdbcType="VARCHAR" property="bundleName"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="enabled_sam" jdbcType="CHAR" property="enabledSAM"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson"/>
+        <result column="manifest_info" jdbcType="VARCHAR" property="manifestInfo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="ServiceDTOMap" type="org.talend.esbconsole.server.domain.api.model.ServiceDTO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="business_system" jdbcType="VARCHAR" property="businessSystem"/>
+        <result column="service_type" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="job" jdbcType="VARCHAR" property="job"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
+        <result column="bundle_id" jdbcType="BIGINT" property="bundleId"/>
+        <result column="feature_name" jdbcType="VARCHAR" property="featureName"/>
+        <result column="bundle_name" jdbcType="VARCHAR" property="bundleName"/>
+        <result column="service_key" jdbcType="VARCHAR" property="serviceKey"/>
+        <result column="enabled_sam" jdbcType="CHAR" property="enabledSAM"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <!-- 声明数据库名称 -->
+    <sql id="TABLENAME">
+        service
+    </sql>
+    <sql id="ALLFIELDS">
+        id
+        , name, file_name, business_system_id, service_type, job, file_type, bundle_id, feature_name, bundle_name, service_key
+        , enabled_sam, description, status, responsible_person, manifest_info, create_time, update_time
+    </sql>
+    <insert id="saveService">
+        INSERT INTO
+        <include refid="TABLENAME"/>
+        (`id`, `name`, `file_name`, business_system_id, service_type, job, `file_type`, `bundle_id`, `feature_name`,
+        `bundle_name`, `service_key`, `enabled_sam`,
+        `description`, `responsible_person`, `manifest_info`, `create_time`, `update_time`)
+        VALUES
+        (#{id},#{name}, #{fileName}, #{businessSystemId}, #{serviceType}, #{job}, #{fileType}, #{bundleId},
+        #{featureName}, #{bundleName}, #{serviceKey}, #{enabledSAM},
+        #{description}, #{responsiblePerson}, #{manifestInfo}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateService">
+        UPDATE
+        <include refid="TABLENAME"/>
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="businessSystemId != null and businessSystemId != ''">
+                `business_system_id` = #{businessSystemId,jdbcType=VARCHAR},
+            </if>
+            <if test="responsiblePerson != null">
+                responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="listAllServices" resultMap="ServiceMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+    </select>
+
+    <select id="getServiceById" resultMap="ServiceMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `id` = #{id}
+    </select>
+
+    <select id="listServices" resultMap="ServiceMap">
+        SELECT
+        <include refid="ALLFIELDS"/>
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+    </select>
+
+
+    <select id="listServicesByConditions" resultMap="ServiceDTOMap">
+        SELECT
+        service.id,
+        service.name,
+        service.file_name,
+        bs.system_name AS business_system,
+        service.service_type,
+        service.job,
+        service.file_type,
+        service.bundle_id,
+        service.feature_name,
+        service.bundle_name,
+        service.service_key,
+        service.enabled_sam,
+        service.description,
+        service.responsible_person,
+        service.create_time,
+        service.update_time
+        FROM
+        service service
+        LEFT JOIN business_system bs ON service.business_system_id = bs.id
+        WHERE
+        service.status = '1'
+        <if test="name != null and name != ''">
+            AND service.name LIKE CONCAT('%', #{name, jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="businessSystemId != null and businessSystemId != ''">
+            AND service.business_system_id = #{businessSystemId, jdbcType=VARCHAR}
+        </if>
+        <if test="serviceType != null and serviceType != ''">
+            AND service.SERVICE_TYPE = #{serviceType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileType != null and fileType != ''">
+            AND service.file_type = #{fileType, jdbcType=VARCHAR}
+        </if>
+        <if test="enabledSAM != null and enabledSAM != ''">
+            AND service.enabled_sam = #{enabledSAM, jdbcType=VARCHAR}
+        </if>
+        <if test="responsiblePerson != null and responsiblePerson != ''">
+            AND service.responsible_person LIKE CONCAT('%', #{responsiblePerson, jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="createTime.startTime != null and createTime.endTime != null ">
+            AND service.create_time BETWEEN #{createTime.startTime,jdbcType=CHAR} AND #{createTime.endTime,jdbcType=CHAR}
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果升序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'asc' and createTimeSort != null">
+            ORDER BY service.create_time ASC
+        </if>
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <if test="createTimeSort == 'desc' and createTimeSort != null">
+            ORDER BY service.create_time DESC
+        </if>
+    </select>
+
+    <delete id="removeService">
+        DELETE
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </delete>
+
+    <select id="getServiceTotal" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+    </select>
+
+    <select id="getServiceTotal4API" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type IN ('restful_ws', 'soap_ws', 'proxy_route')
+    </select>
+
+    <select id="getServiceTotal4TimedRoute" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type = 'timed_route'
+    </select>
+
+    <select id="getServiceTotal4ConventionalRoute" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type = 'conventional_route'
+    </select>
+
+    <select id="getServiceTotal4SOAPAPI" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type = 'soap_ws'
+    </select>
+
+    <select id="getServiceTotal4RestFulAPI" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type = 'restful_ws'
+    </select>
+
+    <select id="getServiceTotal4ProxyRoute" resultType="java.lang.Long">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        `status` = '1'
+        AND
+        service_type = 'proxy_route'
+    </select>
+
+    <select id="getTaskConsumptionTotal" resultType="java.lang.String">
+        SELECT job
+        FROM
+        <include refid="TABLENAME"/>
+        WHERE
+        id = #{id}
+    </select>
+
+</mapper>
