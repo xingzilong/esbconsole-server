@@ -15,7 +15,7 @@ public class ExceptionController {
 
     @Operation(summary = "认证异常处理接口")
     // 此处不能指定method属性的具体值，因为在springmvc重定向的过程中会根据原始请求method去匹配。
-    // 如果此处制定了method属性的具体值，会报错。  xingzilong 2023-09-22
+    // 如果此处指定了method属性的具体值，会报错。  xingzilong 2023-09-22
     @RequestMapping(path = "/authentication")
     public void authenticationException(HttpServletRequest request) {
         throw (RuntimeException) request.getAttribute(Constants.JWT_FILTER_EXCEPTION);
