@@ -43,7 +43,7 @@ public class KarServiceImpl implements KarService {
     }
 
     @Override
-    public void stoplKar(List<String> karBundlesMVNName) {
+    public void stopKar(List<String> karBundlesMVNName) {
         for (String bundleMVNName : karBundlesMVNName) {
             bundle.stop(bundleMVNName);
         }

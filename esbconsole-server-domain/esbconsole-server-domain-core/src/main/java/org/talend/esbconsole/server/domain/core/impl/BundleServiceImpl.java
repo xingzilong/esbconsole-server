@@ -192,7 +192,7 @@ public class BundleServiceImpl implements BundleService {
     }
 
     @Override
-    public void stoplBundleBySymbolicName(String symbolicName) {
+    public void stopBundleBySymbolicName(String symbolicName) {
         bundle.stop(symbolicName);
 
     }

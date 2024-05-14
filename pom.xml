@@ -235,6 +235,12 @@
                 <version>${oshi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20231013</version>
+            </dependency>
+
             <!--单元测试依赖-->
             <dependency>
                 <groupId>org.mockito</groupId>

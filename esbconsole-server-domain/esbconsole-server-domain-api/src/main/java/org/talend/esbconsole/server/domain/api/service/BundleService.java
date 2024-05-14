@@ -143,7 +143,7 @@ public interface BundleService {
      *
      * @param symbolicName 可以是bundle的SymbolicName属性值。 例如：test_project.db_timer_task
      */
-    void stoplBundleBySymbolicName(String symbolicName);
+    void stopBundleBySymbolicName(String symbolicName);
 
     /**
      * 停止 bundle

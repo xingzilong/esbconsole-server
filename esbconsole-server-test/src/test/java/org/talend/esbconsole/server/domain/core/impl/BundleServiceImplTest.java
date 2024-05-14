@@ -255,9 +255,9 @@ public class BundleServiceImplTest {
     }
 
     @Test
-    public void stoplBundleBySymbolicNameTest() {
+    public void stopBundleBySymbolicNameTest() {
         doNothing().when(bundle).stop("");
-        bundleService.stoplBundleBySymbolicName("");
+        bundleService.stopBundleBySymbolicName("");
         verify(bundle).stop("");
     }
 

@@ -66,10 +66,10 @@ public class KarServiceImplTest {
     }
 
     @Test
-    public void stoplKarTest() {
+    public void stopKarTest() {
         Mockito.doNothing().when(bundle).stop(Mockito.anyString());
 
-        karService.stoplKar(Arrays.asList("kar1"));
+        karService.stopKar(Arrays.asList("kar1"));
 
         Mockito.verify(bundle).stop(Mockito.anyString());
     }

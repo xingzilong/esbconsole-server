@@ -37,5 +37,5 @@ public interface KarService {
      *
      * @param karBundlesMVNName kar包含的所有 bundle 在mvn本地库的坐标。例如：mvn:org.talend.esb.test_project/db_timer_task/0.1.0
      */
-    void stoplKar(List<String> karBundlesMVNName);
+    void stopKar(List<String> karBundlesMVNName);
 }
