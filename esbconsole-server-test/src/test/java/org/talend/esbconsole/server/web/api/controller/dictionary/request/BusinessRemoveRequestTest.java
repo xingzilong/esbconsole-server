@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link BusinessRemoveRequest} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -44,7 +44,7 @@ public class BusinessRemoveRequestTest {
         init(businessRemoveRequest1);
         assertTrue(businessRemoveRequest1.equals(businessRemoveRequest));
 
-        businessRemoveRequest1.setId("2023-10-10");
+        businessRemoveRequest1.setId("2021-10-10");
         assertFalse(businessRemoveRequest1.equals(businessRemoveRequest));
 
 

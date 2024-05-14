@@ -4,7 +4,7 @@ package org.talend.esbconsole.server.tools.base.exception.base;
  * 基础异常
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1L;

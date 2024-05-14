@@ -28,7 +28,7 @@ import java.util.List;
  * 频次访问控制相关功能服务接口 {@link FrequencyControlService} 的实现类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Service

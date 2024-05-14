@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * http&https配置类
  *
  * @author xingzilong
- * @JVMService: 2023/09/11
+ * @JVMService: 2021/09/11
  **/
 @Configuration
 public class HttpConfig {

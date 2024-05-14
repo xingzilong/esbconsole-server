@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link SystemAuthorityDTO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/24
+ * @date 2021/10/24
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -32,8 +32,8 @@ public class SystemAuthorityDTOTest {
         systemAuthorityDTO.setDescription("test");
         systemAuthorityDTO.setDeleteFlag("test");
         systemAuthorityDTO.setType("test");
-        systemAuthorityDTO.setCreateTime("2023-12-12");
-        systemAuthorityDTO.setUpdateTime("2023-12-12");
+        systemAuthorityDTO.setCreateTime("2021-12-12");
+        systemAuthorityDTO.setUpdateTime("2021-12-12");
     }
 
     @Test
@@ -111,11 +111,11 @@ public class SystemAuthorityDTOTest {
         assertFalse(systemAuthorityDTO1.equals(systemAuthorityDTO));
 
         init(systemAuthorityDTO1);
-        systemAuthorityDTO1.setCreateTime("2023-12-13");
+        systemAuthorityDTO1.setCreateTime("2021-12-13");
         assertFalse(systemAuthorityDTO1.equals(systemAuthorityDTO));
 
         init(systemAuthorityDTO1);
-        systemAuthorityDTO1.setUpdateTime("2023-12-13");
+        systemAuthorityDTO1.setUpdateTime("2021-12-13");
         assertFalse(systemAuthorityDTO1.equals(systemAuthorityDTO));
     }
 }

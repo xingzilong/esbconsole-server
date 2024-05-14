@@ -10,7 +10,7 @@ import java.util.List;
  * 前端动态路由配置信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor

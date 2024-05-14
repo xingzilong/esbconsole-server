@@ -18,7 +18,7 @@ import java.util.Set;
  * SpringSecurity的 {@link UserDetailsService} 接口的实现，自定义认证授权时必须实现该接口， 用于实现自定义的认证和鉴权的规则。
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Service

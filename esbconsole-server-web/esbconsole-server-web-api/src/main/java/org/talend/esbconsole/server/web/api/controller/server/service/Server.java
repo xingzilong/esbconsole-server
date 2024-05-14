@@ -21,7 +21,7 @@ import java.util.Properties;
  * 服务器相关信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class Server {
     private static final int OSHI_WAIT_SECOND = 1000;

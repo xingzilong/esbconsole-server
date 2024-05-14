@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
  * {@link Arith} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/16
+ * @date 2021/10/16
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)

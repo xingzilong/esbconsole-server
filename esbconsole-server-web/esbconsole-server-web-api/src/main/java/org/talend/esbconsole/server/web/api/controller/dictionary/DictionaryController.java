@@ -44,7 +44,7 @@ import java.util.List;
  * 服务管理-字典相关功能控制器
  *
  * @author xingzilong
- * @date 2023/08/22
+ * @date 2021/08/22
  */
 @Validated
 @Slf4j

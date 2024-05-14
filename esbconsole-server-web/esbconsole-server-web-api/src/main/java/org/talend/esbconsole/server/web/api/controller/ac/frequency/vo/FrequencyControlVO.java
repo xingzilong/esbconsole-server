@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 访问控制-品频次控制规则响应返回对象
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor

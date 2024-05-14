@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * mybatis自定义 LocalDateTime 类型处理程序
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
 

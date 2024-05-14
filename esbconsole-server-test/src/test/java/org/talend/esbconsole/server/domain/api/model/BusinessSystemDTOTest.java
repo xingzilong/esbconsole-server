@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link BusinessSystemDTO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/23
+ * @date 2021/10/23
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -24,8 +24,8 @@ public class BusinessSystemDTOTest {
         businessSystemDTO.setStatus("1");
         businessSystemDTO.setResponsiblePerson("zhangsan");
         businessSystemDTO.setRemark("test");
-        businessSystemDTO.setCreateTime("2023-10-17");
-        businessSystemDTO.setUpdateTime("2023-10-17");
+        businessSystemDTO.setCreateTime("2021-10-17");
+        businessSystemDTO.setUpdateTime("2021-10-17");
     }
 
     @Test
@@ -70,11 +70,11 @@ public class BusinessSystemDTOTest {
         assertFalse(businessSystemDTO1.equals(businessSystemDTO));
 
         init(businessSystemDTO1);
-        businessSystemDTO1.setCreateTime("2023-10-16");
+        businessSystemDTO1.setCreateTime("2021-10-16");
         assertFalse(businessSystemDTO1.equals(businessSystemDTO));
 
         init(businessSystemDTO1);
-        businessSystemDTO1.setUpdateTime("2023-10-16");
+        businessSystemDTO1.setUpdateTime("2021-10-16");
         assertFalse(businessSystemDTO1.equals(businessSystemDTO));
     }
 }

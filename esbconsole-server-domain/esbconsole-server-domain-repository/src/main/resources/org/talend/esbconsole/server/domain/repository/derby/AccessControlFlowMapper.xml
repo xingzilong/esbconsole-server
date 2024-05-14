@@ -109,11 +109,11 @@
                 AND DATE(acflow.create_time) BETWEEN #{createTime.startTime} AND #{createTime.endTime}
             </if>
         </where>
-        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序升序 xingzilong 2023-07-31 -->
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序升序 xingzilong 2021-07-31 -->
         <if test="createTimeSort == 'asc' and createTimeSort != null">
             ORDER BY DATE(acflow.create_time) ASC
         </if>
-        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2021-07-31 -->
         <if test="createTimeSort == 'desc' and createTimeSort != null">
             ORDER BY DATE(acflow.create_time) DESC
         </if>

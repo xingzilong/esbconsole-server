@@ -7,7 +7,7 @@ import org.talend.esbconsole.server.domain.api.param.BundlePageQueryParam;
  * Bundle的过滤匹配策略
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class BundleMatchStrategy implements MatchStrategy<BundleInfo> {
     /**

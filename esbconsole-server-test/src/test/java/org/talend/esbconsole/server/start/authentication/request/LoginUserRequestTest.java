@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  * {@link LoginUserRequest} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/17
+ * @date 2021/10/17
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -21,8 +21,8 @@ public class LoginUserRequestTest {
 
     public void init(LoginUserRequest loginUserRequest) {
         TimeInterval timeInterval = new TimeInterval();
-        timeInterval.setStartTime("2023-10-09");
-        timeInterval.setEndTime("2023-10-10");
+        timeInterval.setStartTime("2021-10-09");
+        timeInterval.setEndTime("2021-10-10");
         loginUserRequest.setUserName("test-name");
         loginUserRequest.setPassword("test-password");
     }

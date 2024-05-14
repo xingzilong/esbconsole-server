@@ -6,7 +6,7 @@ import org.talend.esbconsole.server.tools.common.utils.Arith;
  * 內存相关信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class Mem {
     /**

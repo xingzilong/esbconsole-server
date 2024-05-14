@@ -11,7 +11,7 @@ import java.util.Set;
  * SpringSecurity自定义认证鉴权的规则
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Component("AE")
 public class AuthorityExpressionRoot {

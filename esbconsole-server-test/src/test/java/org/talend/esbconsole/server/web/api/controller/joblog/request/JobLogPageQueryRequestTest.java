@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  * {@link JobLogPageQueryRequest} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -21,8 +21,8 @@ public class JobLogPageQueryRequestTest {
 
     public void init(JobLogPageQueryRequest jobLogPageQueryRequest) {
         TimeInterval timeInterval = new TimeInterval();
-        timeInterval.setStartTime("2023-10-09");
-        timeInterval.setEndTime("2023-10-10");
+        timeInterval.setStartTime("2021-10-09");
+        timeInterval.setEndTime("2021-10-10");
         jobLogPageQueryRequest.setServiceName("test-servicename");
         jobLogPageQueryRequest.setJob("test-job");
         jobLogPageQueryRequest.setStatus("success");

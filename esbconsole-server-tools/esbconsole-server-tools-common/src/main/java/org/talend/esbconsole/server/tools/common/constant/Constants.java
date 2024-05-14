@@ -4,7 +4,7 @@ package org.talend.esbconsole.server.tools.common.constant;
  * 通用常量信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class Constants {
 

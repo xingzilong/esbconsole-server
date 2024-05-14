@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link IPControlVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -61,7 +61,7 @@ public class IPControlVOTest {
         assertFalse(ipControlVO.equals(ipControl));
 
         init(ipControlVO);
-        ipControlVO.setCreateTime("2023/10/9");
+        ipControlVO.setCreateTime("2021/10/9");
         assertFalse(ipControlVO.equals(ipControl));
 
         init(ipControlVO);
@@ -85,7 +85,7 @@ public class IPControlVOTest {
         assertFalse(ipControlVO.equals(ipControl));
 
         init(ipControlVO);
-        ipControlVO.setUpdateTime("2023/10/9");
+        ipControlVO.setUpdateTime("2021/10/9");
         assertFalse(ipControlVO.equals(ipControl));
 
         init(ipControlVO);

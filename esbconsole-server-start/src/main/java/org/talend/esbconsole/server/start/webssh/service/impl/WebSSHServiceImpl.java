@@ -28,7 +28,7 @@ import java.util.concurrent.Executors;
  * webssh业务处理逻辑接口的 {@link WebSSHService} 的实现类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Service
@@ -39,7 +39,7 @@ public class WebSSHServiceImpl implements WebSSHService {
     private static Map<String, Object> sshMap = new ConcurrentHashMap<>();
 
     /**
-     * 线程池 待优化  xingzilong 2023-09-20
+     * 线程池 待优化  xingzilong 2021-09-20
      */
     private ExecutorService executorService = Executors.newCachedThreadPool();
 

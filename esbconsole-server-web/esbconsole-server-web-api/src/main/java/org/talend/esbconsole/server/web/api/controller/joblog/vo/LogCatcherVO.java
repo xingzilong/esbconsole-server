@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 此表记录了esb任务模型中节点的异常日志
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor

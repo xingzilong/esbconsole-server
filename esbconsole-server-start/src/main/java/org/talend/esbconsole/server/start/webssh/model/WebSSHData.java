@@ -6,7 +6,7 @@ import lombok.Data;
  * webssh客户端发送消息的报文格式
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 public class WebSSHData {

@@ -12,7 +12,7 @@ import java.util.List;
  * 频次访问控制相关的功能服务接口
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public interface FrequencyControlService {
 

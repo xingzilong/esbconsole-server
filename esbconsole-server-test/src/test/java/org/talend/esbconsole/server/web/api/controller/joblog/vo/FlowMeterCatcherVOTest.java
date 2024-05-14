@@ -12,14 +12,14 @@ import static org.junit.Assert.assertTrue;
  * {@link FlowMeterCatcherVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class FlowMeterCatcherVOTest {
 
     public void init(FlowMeterCatcherVO flowMeterCatcherVO) {
-        flowMeterCatcherVO.setMoment("2023-10-09");
+        flowMeterCatcherVO.setMoment("2021-10-09");
         flowMeterCatcherVO.setUuid("test-id");
         flowMeterCatcherVO.setPid("test-id");
         flowMeterCatcherVO.setFatherPid("test-id");
@@ -59,7 +59,7 @@ public class FlowMeterCatcherVOTest {
         init(flowMeterCatcherVO1);
         assertTrue(flowMeterCatcherVO1.equals(flowMeterCatcherVO));
 
-        flowMeterCatcherVO1.setMoment("2023-10-10");
+        flowMeterCatcherVO1.setMoment("2021-10-10");
         assertFalse(flowMeterCatcherVO1.equals(flowMeterCatcherVO));
 
         init(flowMeterCatcherVO1);

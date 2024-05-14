@@ -37,7 +37,7 @@ import java.util.*;
  * 角色相关的功能服务接口实现类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Service
 public class SystemRoleServiceImpl implements SystemRoleService {
@@ -195,7 +195,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         findRouteIdForAuthority(allRouteModels, routeIdList);
         // 合并 权限id和路由id
         authorityIdList.addAll(routeIdList);
-        // 一定会添加首页的路由，但是首页包含的接口的权限由用户决定  xingzilong 2023-09-06  待优化
+        // 一定会添加首页的路由，但是首页包含的接口的权限由用户决定  xingzilong 2021-09-06  待优化
         authorityIdList.add(6L);
         // 构件system_role_authority表的数据项
         for (Long authorityId : authorityIdList) {

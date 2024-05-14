@@ -9,7 +9,7 @@ import java.util.*;
  * 字符串工具类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class StringUtil extends org.apache.commons.lang3.StringUtils {
     /**

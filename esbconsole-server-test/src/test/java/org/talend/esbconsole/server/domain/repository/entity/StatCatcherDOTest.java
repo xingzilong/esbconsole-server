@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * {@link StatCatcherDO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/18
+ * @date 2021/10/18
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)

@@ -4,7 +4,7 @@ package org.talend.esbconsole.server.web.api.controller.server.service;
  * 系统文件相关信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class SysFile {
     /**

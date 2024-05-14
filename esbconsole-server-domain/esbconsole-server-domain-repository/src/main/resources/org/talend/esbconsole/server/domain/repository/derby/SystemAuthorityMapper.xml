@@ -212,7 +212,7 @@
         DISTINCT parent_id
         FROM
         <include refid="TABLENAME"/>
-        <!-- 如果入参的集合长度为0，会出现异常吗？ xingzilong  2023-09-19 -->
+        <!-- 如果入参的集合长度为0，会出现异常吗？ xingzilong  2021-09-19 -->
         WHERE id IN
         <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
             #{id}

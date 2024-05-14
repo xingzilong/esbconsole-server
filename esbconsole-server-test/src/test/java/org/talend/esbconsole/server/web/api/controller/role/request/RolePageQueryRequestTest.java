@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  * {@link RolePageQueryRequest} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/10
+ * @date 2021/10/10
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -21,8 +21,8 @@ public class RolePageQueryRequestTest {
 
     public void init(RolePageQueryRequest rolePageQueryRequest) {
         TimeInterval timeInterval = new TimeInterval();
-        timeInterval.setStartTime("2023-10-09");
-        timeInterval.setEndTime("2023-10-10");
+        timeInterval.setStartTime("2021-10-09");
+        timeInterval.setEndTime("2021-10-10");
         rolePageQueryRequest.setName("test-name");
         rolePageQueryRequest.setRoleName("test-rolename");
         rolePageQueryRequest.setStatus("0");

@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * 时间参数格式校验注解
  *
  * @author xingzilong
- * @create: 2023-08-31 15:06
+ * @create: 2021-08-31 15:06
  */
 @Documented
 @Constraint(validatedBy = TimeFormatValidator.class)

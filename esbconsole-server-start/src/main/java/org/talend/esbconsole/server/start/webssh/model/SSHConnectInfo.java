@@ -8,7 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
  * ssh连接信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class SSHConnectInfo {
     /**

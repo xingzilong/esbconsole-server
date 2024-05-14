@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link JobLogVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -23,7 +23,7 @@ public class JobLogVOTest {
         jobLogVO.setJob("test-job");
         jobLogVO.setStatus("test-status");
         jobLogVO.setTime(1L);
-        jobLogVO.setExecutTime("2023-10-09");
+        jobLogVO.setExecutTime("2021-10-09");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class JobLogVOTest {
         assertFalse(jobLogVO1.equals(jobLogVO));
 
         init(jobLogVO1);
-        jobLogVO1.setExecutTime("2023-10-10");
+        jobLogVO1.setExecutTime("2021-10-10");
         assertFalse(jobLogVO1.equals(jobLogVO));
 
     }

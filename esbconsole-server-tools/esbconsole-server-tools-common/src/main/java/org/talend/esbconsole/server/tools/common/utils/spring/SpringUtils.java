@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * spring工具类 方便在非spring管理环境中获取bean
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Component
 public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {

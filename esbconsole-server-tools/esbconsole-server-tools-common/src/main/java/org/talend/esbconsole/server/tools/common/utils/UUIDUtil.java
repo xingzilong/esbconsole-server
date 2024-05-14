@@ -6,7 +6,7 @@ import java.util.UUID;
  * 获取UUID工具类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class UUIDUtil {
 

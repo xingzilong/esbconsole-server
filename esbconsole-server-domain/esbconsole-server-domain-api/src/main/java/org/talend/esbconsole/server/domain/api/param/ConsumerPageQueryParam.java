@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * 业消费方系统字典分页查询参数
  *
  * @author xingzilong
- * @date 2023/08/22 9:50
+ * @date 2021/08/22 9:50
  */
 @Data
 @NoArgsConstructor

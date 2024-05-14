@@ -12,14 +12,14 @@ import static org.junit.Assert.assertTrue;
  * {@link StatCatcherVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class StatCatcherVOTest {
 
     public void init(StatCatcherVO statCatcherVO) {
-        statCatcherVO.setMoment("2023-10-09");
+        statCatcherVO.setMoment("2021-10-09");
         statCatcherVO.setUuid("test-id");
         statCatcherVO.setPid("test-id");
         statCatcherVO.setFatherPid("test-id");
@@ -58,7 +58,7 @@ public class StatCatcherVOTest {
         init(statCatcherVO1);
         assertTrue(statCatcherVO1.equals(statCatcherVO));
 
-        statCatcherVO1.setMoment("2023-10-10");
+        statCatcherVO1.setMoment("2021-10-10");
         assertFalse(statCatcherVO1.equals(statCatcherVO));
 
         init(statCatcherVO1);

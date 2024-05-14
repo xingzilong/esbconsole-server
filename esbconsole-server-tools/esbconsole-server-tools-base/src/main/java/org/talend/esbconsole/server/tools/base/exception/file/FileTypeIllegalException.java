@@ -4,7 +4,7 @@ package org.talend.esbconsole.server.tools.base.exception.file;
  * 文件类型非法异常
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class FileTypeIllegalException extends FileException {
     private static final long serialVersionUID = 1L;

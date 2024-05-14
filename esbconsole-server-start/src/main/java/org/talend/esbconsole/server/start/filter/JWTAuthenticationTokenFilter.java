@@ -27,7 +27,7 @@ import java.util.Objects;
  * 为实现用户认证和鉴权功能的token过滤器，用于对请求的token进行校验
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Component

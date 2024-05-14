@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
  * jar文件中的MANIFEST.MF文件数据对象
  *
  * @author xingzilong
- * @date 2023/11/23
+ * @date 2021/11/23
  */
 @Data
 @NoArgsConstructor

@@ -112,11 +112,11 @@
                 AND create_time BETWEEN TO_TIMESTAMP(#{createTime.startTime,jdbcType=CHAR}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{createTime.endTime,jdbcType=CHAR}, 'YYYY-MM-DD')
             </if>
         </where>
-        <!-- 创建时间排序功能新增 根据创建时间来对查询结果升序排序 xingzilong 2023-07-31 -->
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果升序排序 xingzilong 2021-07-31 -->
         <if test="createTimeSort == 'asc' and createTimeSort != null">
             ORDER BY create_time ASC
         </if>
-        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2023-07-31 -->
+        <!-- 创建时间排序功能新增 根据创建时间来对查询结果降序排序 xingzilong 2021-07-31 -->
         <if test="createTimeSort == 'desc' and createTimeSort != null">
             ORDER BY create_time DESC
         </if>

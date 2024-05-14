@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  * {@link ServiceVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -36,8 +36,8 @@ public class ServiceVOTest {
         serviceVO.setEnabledSAM("test");
         serviceVO.setDescription("test");
         serviceVO.setResponsiblePerson("test");
-        serviceVO.setCreateTime("2023-12-12");
-        serviceVO.setUpdateTime("2023-12-12");
+        serviceVO.setCreateTime("2021-12-12");
+        serviceVO.setUpdateTime("2021-12-12");
     }
 
     @Test
@@ -120,11 +120,11 @@ public class ServiceVOTest {
         assertFalse(serviceVO1.equals(serviceVO));
 
         init(serviceVO1);
-        serviceVO1.setCreateTime("2023-12-13");
+        serviceVO1.setCreateTime("2021-12-13");
         assertFalse(serviceVO1.equals(serviceVO));
 
         init(serviceVO1);
-        serviceVO1.setUpdateTime("2023-12-13");
+        serviceVO1.setUpdateTime("2021-12-13");
         assertFalse(serviceVO1.equals(serviceVO));
     }
 }

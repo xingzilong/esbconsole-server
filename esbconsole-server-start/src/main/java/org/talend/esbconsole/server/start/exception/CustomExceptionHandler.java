@@ -26,7 +26,7 @@ import java.util.Map;
  * 全局自定义统一异常处理
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @RestControllerAdvice
 public class CustomExceptionHandler {

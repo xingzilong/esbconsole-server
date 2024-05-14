@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 查询条件对象
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor

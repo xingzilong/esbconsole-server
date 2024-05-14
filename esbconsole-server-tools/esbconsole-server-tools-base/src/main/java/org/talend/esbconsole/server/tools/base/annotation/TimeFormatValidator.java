@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  * 请求参数时间校验
  *
  * @author xingzilong
- * @create: 2023/08/31
+ * @create: 2021/08/31
  **/
 public class TimeFormatValidator implements ConstraintValidator<TimeFormat, String> {
 

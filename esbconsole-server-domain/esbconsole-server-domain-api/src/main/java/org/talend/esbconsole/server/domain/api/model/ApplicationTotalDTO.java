@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
  * 平台应用分析响应
  *
  * @author xingzilong
- * @date 2023/08/15
+ * @date 2021/08/15
  **/
 @Data
 @AllArgsConstructor

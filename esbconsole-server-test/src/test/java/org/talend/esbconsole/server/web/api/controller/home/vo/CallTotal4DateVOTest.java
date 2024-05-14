@@ -12,14 +12,14 @@ import static org.junit.Assert.assertTrue;
  * {@link CallTotal4DateVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class CallTotal4DateVOTest {
 
     public void init(CallTotal4DateVO callTotal4DateVO) {
-        callTotal4DateVO.setDate("2023-10-09");
+        callTotal4DateVO.setDate("2021-10-09");
         callTotal4DateVO.setTotal("1024");
         callTotal4DateVO.setUnit("GB");
     }
@@ -46,7 +46,7 @@ public class CallTotal4DateVOTest {
         init(callTotal4DateVO1);
         assertTrue(callTotal4DateVO1.equals(callTotal4DateVO));
 
-        callTotal4DateVO1.setDate("2023-10-10");
+        callTotal4DateVO1.setDate("2021-10-10");
         assertFalse(callTotal4DateVO1.equals(callTotal4DateVO));
 
         init(callTotal4DateVO1);

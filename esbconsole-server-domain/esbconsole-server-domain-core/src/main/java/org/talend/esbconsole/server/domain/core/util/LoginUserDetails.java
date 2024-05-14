@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * SpringSecurity的 {@link UserDetails} 接口的实现，自定义认证授权时必须实现该接口， 用于存储自定义的用户的详细信息
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class LoginUserDetails implements UserDetails {
     /**

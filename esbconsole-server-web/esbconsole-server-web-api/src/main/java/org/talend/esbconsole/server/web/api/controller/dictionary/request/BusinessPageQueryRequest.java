@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * 业务系统字典信息分页查询请求参数
  *
  * @author xingzilong
- * @date 2023/08/22
+ * @date 2021/08/22
  */
 @Data
 @NoArgsConstructor

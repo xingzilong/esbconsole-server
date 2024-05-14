@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
  * {@link AnalysisUtil} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/13
+ * @date 2021/10/13
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -45,7 +45,7 @@ public class AnalysisUtilTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    改动过源方法，测试就跑不通了，暂时注掉。 xingzilong 2023-12-07
+//    改动过源方法，测试就跑不通了，暂时注掉。 xingzilong 2021-12-07
 //    @Test
 //    public void writeTempFileTest() throws Exception {
 //        ZipEntry zipEntry = mock(ZipEntry.class);

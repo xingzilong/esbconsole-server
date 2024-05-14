@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * 消费方系统相关的功能服务接口
  *
  * @author xingzilong
- * @date 2023/08/22
+ * @date 2021/08/22
  */
 @Service
 public interface ConsumerSystemService {

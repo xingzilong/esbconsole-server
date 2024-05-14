@@ -19,7 +19,7 @@ import java.io.IOException;
  * JMX MBean对象相关操作 org.apache.karaf:type=bundle
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Component

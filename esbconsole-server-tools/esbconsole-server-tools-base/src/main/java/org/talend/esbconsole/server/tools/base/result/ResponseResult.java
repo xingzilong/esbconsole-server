@@ -4,7 +4,7 @@ package org.talend.esbconsole.server.tools.base.result;
  * 响应数据的统一封装
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 public class ResponseResult<T> {
     /**

@@ -18,7 +18,7 @@ import java.sql.SQLException;
  * 数据源（数据库表）初始化相关配置
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Slf4j
 @Component

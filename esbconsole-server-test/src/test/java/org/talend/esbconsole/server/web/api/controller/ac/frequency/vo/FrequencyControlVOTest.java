@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link FrequencyControlVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -57,7 +57,7 @@ public class FrequencyControlVOTest {
         assertTrue(frequencyControlVO.equals(frequencyControl));
 
         init(frequencyControlVO);
-        frequencyControlVO.setCreateTime("2023/10/9");
+        frequencyControlVO.setCreateTime("2021/10/9");
         assertFalse(frequencyControlVO.equals(frequencyControl));
 
         init(frequencyControlVO);
@@ -84,7 +84,7 @@ public class FrequencyControlVOTest {
         assertFalse(frequencyControlVO.equals(frequencyControl));
 
         init(frequencyControlVO);
-        frequencyControlVO.setUpdateTime("2023/10/9");
+        frequencyControlVO.setUpdateTime("2021/10/9");
         assertFalse(frequencyControlVO.equals(frequencyControl));
 
         init(frequencyControlVO);

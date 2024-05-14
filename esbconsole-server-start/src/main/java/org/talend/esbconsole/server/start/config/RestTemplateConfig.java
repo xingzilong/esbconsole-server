@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
  * RestTemplate相关配置
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Configuration
 public class RestTemplateConfig {

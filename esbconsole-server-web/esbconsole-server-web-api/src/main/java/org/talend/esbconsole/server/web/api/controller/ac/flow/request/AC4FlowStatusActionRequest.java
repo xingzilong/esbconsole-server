@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 访问控制-流量控制规则其他操作请求参数
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor

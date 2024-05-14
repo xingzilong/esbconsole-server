@@ -18,7 +18,7 @@ import java.io.IOException;
  * SpringSecurity授权异常的处理程序
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Component
 @Slf4j

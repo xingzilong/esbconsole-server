@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  * {@link FlowControlVO} 单元测试
  *
  * @author xingzilong
- * @date 2023/10/9
+ * @date 2021/10/9
  */
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -58,7 +58,7 @@ public class FlowControlVOTest {
         flowControl.getUpdateTime();
 
         init(flowControlVO);
-        flowControlVO.setCreateTime("2023/10/9");
+        flowControlVO.setCreateTime("2021/10/9");
         assertFalse(flowControl.equals(flowControlVO));
 
         init(flowControlVO);
@@ -94,7 +94,7 @@ public class FlowControlVOTest {
         assertFalse(flowControl.equals(flowControlVO));
 
         init(flowControlVO);
-        flowControlVO.setUpdateTime("2023/10/9");
+        flowControlVO.setUpdateTime("2021/10/9");
         assertFalse(flowControl.equals(flowControlVO));
 
     }

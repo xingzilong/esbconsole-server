@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
  * service分页查询请求参数
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Data
 @NoArgsConstructor
@@ -81,7 +81,7 @@ public class ServicePageQueryRequest extends BasePageQueryRequest {
      * 创建时间的排序关键字
      *
      * @author xingzilong
-     * @date 2023-07-31
+     * @date 2021-07-31
      */
     private String createTimeSort;
 }

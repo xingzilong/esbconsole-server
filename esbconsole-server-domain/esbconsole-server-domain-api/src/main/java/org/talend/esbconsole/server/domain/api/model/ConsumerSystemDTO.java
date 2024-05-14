@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 消费方系统字典信息
  *
  * @author xingzilong
- * @date 2023/08/25
+ * @date 2021/08/25
  */
 @Data
 @NoArgsConstructor

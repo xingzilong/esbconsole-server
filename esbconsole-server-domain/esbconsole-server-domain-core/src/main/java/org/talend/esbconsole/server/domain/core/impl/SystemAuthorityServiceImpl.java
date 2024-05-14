@@ -16,7 +16,7 @@ import java.util.List;
  * 权限相关的功能服务接口实现类
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Service
 public class SystemAuthorityServiceImpl implements SystemAuthorityService {

@@ -12,7 +12,7 @@ import java.util.List;
  * access_control_ip表相应的DAO
  *
  * @author xingzilong
- * @date 2023/05/04
+ * @date 2021/05/04
  */
 @Repository
 public interface AccessControlIPDAO {
